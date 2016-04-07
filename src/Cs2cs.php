@@ -186,7 +186,7 @@ class Cs2cs
             if (!isset($this->callbacks[$key])) {
                 throw new \RuntimeException("Received data with unknown callback identifier: $key");
             }
-            call_user_func_array($this->callbacks[$key], array_slice($matches, 1));
+            call_user_func_array($this->callbacks[$key], array_map('floatval', array_slice($matches, 1)));
             unset($this->callbacks[$key]);
             $this->buffer = $matches[6];
         }
