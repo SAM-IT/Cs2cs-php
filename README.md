@@ -55,7 +55,7 @@ Using this can cause deadlocks.
 blockingTransform($x, $y)
 ````
 If you really need to do the transformation synchronously you can use this.
-This will write dummy data to cs2cs and force it to flush it's buffers.
+This will write dummy data to cs2cs and force it to flush its buffers.
 If you just need to transform a single coordinate use `transform()` followed by `flush()` instead.
 Using this effectively writes 4000 bytes instead of ~25. This is ~10000x slower then doing it asynchronously.
 
