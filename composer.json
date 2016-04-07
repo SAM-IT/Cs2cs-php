@@ -1,0 +1,14 @@
+{
+    "name": "sam-it/cs2cs",
+    "description": "Cs2cs wrapper for PHP",
+    "keywords": ["cs2cs", "proj", "proj4", "coordinate", "transformation"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sam Mousa",
+            "email": "sam@mousa.nl"
+        }
+    ],
+    "require": {}
+}
