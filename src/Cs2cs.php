@@ -181,12 +181,20 @@ class Cs2cs
 
         $this->read += strlen($this->buffer) - $bufferLength;
 
-        while (preg_match('/(\d+.\d+)\s+(\d+.\d+)\s+(\d+.\d+)\s+(\d+.\d+)\s*#(\d+)(\n.*)/s', $this->buffer, $matches)) {
-            $key = intval($matches[5]);
+        while (preg_match('/(?<x>\d+.\d+)\s+(?<y>\d+.\d+)\s+(?<lon>\d+.\d+)\s+(?<lat>\d+.\d+)\s+(?<h>\d+.\d+)\s*#(?<key>\d+)(\n.*)/s', $this->buffer, $matches)) {
+            $key = intval($matches['key']);
             if (!isset($this->callbacks[$key])) {
                 throw new \RuntimeException("Received data with unknown callback identifier: $key");
             }
-            call_user_func_array($this->callbacks[$key], array_map('floatval', array_slice($matches, 1)));
+            call_user_func(
+                $this->callbacks[$key],
+                floatval($matches['x']),
+                floatval($matches['y']),
+                floatval($matches['lon']),
+                floatval($matches['lat']),
+                floatval($matches['h'])
+            );
+
             unset($this->callbacks[$key]);
             $this->buffer = $matches[6];
         }
