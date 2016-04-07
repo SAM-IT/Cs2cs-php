@@ -10,5 +10,10 @@
             "email": "sam@mousa.nl"
         }
     ],
-    "require": {}
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "SamIT\\Proj4\\" : "src/"
+        }
+    }
 }
