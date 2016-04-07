@@ -35,19 +35,29 @@ Cs2cs uses output buffering, instead of writing a line immediately after reading
 To efficiently transform many coordinates, we instead pass a callback that gets called with the result when it becomes available.
 
 # Short function doc:
-`transform($x, $y, $callback)`
+````
+transform($x, $y, $callback)
+````
 Sets up a callback that gets called when the transformation of `$x` and `$y` is complete.
-`close()`
+
+````
+close()
+````
 Terminates the cs2cs process, reads all remaining data. This will call all remaining callbacks.
-`read($timeout = 0)`
+
+````
+read($timeout = 0)
+````
 Attempts to read data from cs2cs and fires the appropriate callbacks. Mostly used internally.
 If a timeout is set it will block until data becomes available.
 Using this can cause deadlocks.
-`blockingTransform($x, $y)`
+````
+blockingTransform($x, $y)
+````
 If you really need to do the transformation synchronously you can use this.
 This will write dummy data to cs2cs and force it to flush it's buffers.
 If you just need to transform a single coordinate use `transform()` followed by `flush()` instead.
-Using this effectively writes 4000 bytes instead of ~25. This is ~1000x slower then doing it asynchronously.
+Using this effectively writes 4000 bytes instead of ~25. This is ~10000x slower then doing it asynchronously.
 
 # Cloning
 In case you want to do this even faster (not tested!) the object supports cloning.
