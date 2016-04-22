@@ -129,6 +129,7 @@ class Cs2cs
         $this->callbackCounter++;
         $this->write($data);
         // Try reading data after writing.
+        echo "Count: {$this->callbackCounter} - " . count($this->callbacks) . " - read: $this->read \n";
         $this->read();
     }
 
@@ -181,7 +182,8 @@ class Cs2cs
 
         $this->read += strlen($this->buffer) - $bufferLength;
 
-        while (preg_match('/(?<x>\d+.\d+)\s+(?<y>\d+.\d+)\s+(?<lon>\d+.\d+)\s+(?<lat>\d+.\d+)\s+(?<h>\d+.\d+)\s*#(?<key>\d+)(\n.*)/s', $this->buffer, $matches)) {
+
+        while (preg_match('/(?<x>\d+.\d+)\s+(?<y>\d+.\d+)\s+(?<lon>\d+.\d+)\s+(?<lat>\d+.\d+)\s+(?<h>\d+.\d+)\s*#(?<key>\d+)\n(?<rest>.*)/s', $this->buffer, $matches)) {
             $key = intval($matches['key']);
             if (!isset($this->callbacks[$key])) {
                 throw new \RuntimeException("Received data with unknown callback identifier: $key");
@@ -196,7 +198,7 @@ class Cs2cs
             );
 
             unset($this->callbacks[$key]);
-            $this->buffer = $matches[6];
+            $this->buffer = $matches['rest'];
         }
 
         return $this->read - $readBytes;
