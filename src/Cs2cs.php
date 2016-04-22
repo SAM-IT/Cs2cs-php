@@ -129,7 +129,6 @@ class Cs2cs
         $this->callbackCounter++;
         $this->write($data);
         // Try reading data after writing.
-        echo "Count: {$this->callbackCounter} - " . count($this->callbacks) . " - read: $this->read \n";
         $this->read();
     }
 
